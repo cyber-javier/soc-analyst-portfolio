@@ -68,6 +68,22 @@ Failed login attempts were ingested into Splunk and analyzed.
 
 ---
 
+## 📊 Splunk Dashboard
+
+This dashboard visualizes SSH brute-force attack activity using ingested Linux authentication logs.
+
+### 🔹 Features
+- Failed SSH attempts over time
+- Top attacker IP identification
+- Raw authentication logs
+- Detection threshold for suspicious activity
+
+### 🖼️ Dashboard Preview
+
+![Dashboard](screenshots/dashboard-overview.png)
+
+---
+
 ## 🎯 Successful Compromise
 
 After multiple attempts, the attacker successfully logged in:
