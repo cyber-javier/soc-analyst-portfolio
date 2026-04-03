@@ -165,11 +165,11 @@ Improved log parsing using regex to accurately extract attacker IPs:
 
 ---
 
-## 🚨 Future Improvements
+## 🚧 Future Improvements
 
-- Implement real-time alerts in Splunk
-- Simulate multiple attackers
-- Integrate with SOAR tools for automated response
+- Simulate distributed brute-force attacks from multiple IPs
+- Integrate with SOAR tools for automated incident response
+- Implement alert enrichment (GeoIP, threat intelligence)
 
 ---
 
