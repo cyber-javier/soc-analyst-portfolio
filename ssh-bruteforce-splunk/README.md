@@ -84,6 +84,25 @@ This dashboard visualizes SSH brute-force attack activity using ingested Linux a
 
 ---
 
+## 🔎 Key Splunk Queries
+
+### Failed SSH Attempts
+index=main source="/var/log/auth.log" "Failed password"
+
+### Top Attacker IP
+index=main source="/var/log/auth.log" "Failed password"
+| rex "from (?<src>\d+\.\d+\.\d+\.\d+)"
+| stats count by src
+| sort -count
+
+### Detection Threshold
+index=main source="/var/log/auth.log" "Failed password"
+| rex "from (?<src>\d+\.\d+\.\d+\.\d+)"
+| stats count by src
+| where count > 10
+
+---
+
 ## 🎯 Successful Compromise
 
 After multiple attempts, the attacker successfully logged in:
@@ -113,7 +132,7 @@ Improved log parsing using regex to accurately extract attacker IPs:
 
 ---
 
-## 🧠 Key Takeaways
+## 💡 Key Takeaways
 
 * Brute-force attacks generate identifiable patterns in logs
 * SIEM tools like Splunk enable centralized detection
@@ -122,10 +141,25 @@ Improved log parsing using regex to accurately extract attacker IPs:
 
 ---
 
-## 🚀 Skills Demonstrated
+## 🛠️ Skills Demonstrated
 
-* SIEM (Splunk)
-* Linux Log Analysis
-* Threat Detection
-* Attack Simulation (Hydra)
-* Regex & Data Extraction
+- Log analysis (Linux authentication logs)
+- SIEM usage (Splunk Enterprise)
+- Threat detection (SSH brute-force)
+- Regex field extraction
+- Data visualization (Splunk dashboards)
+- Basic detection engineering (threshold-based alerting)
+
+---
+
+## 🚨 Future Improvements
+
+- Implement real-time alerts in Splunk
+- Simulate multiple attackers
+- Integrate with SOAR tools for automated response
+
+---
+
+## 🧠 Conclusion
+
+This project demonstrates the ability to detect and investigate SSH brute-force attacks using Splunk. By ingesting Linux authentication logs, extracting attacker IPs, and applying threshold-based detection logic, this lab simulates real-world SOC analyst workflows including monitoring, detection, and initial triage.
