@@ -2,7 +2,7 @@
 
 ## 📌 Overview
 
-This project simulates an SSH brute-force attack and demonstrates detection using Splunk SIEM.
+This project simulates an SSH brute-force attack and demonstrates detection using Splunk SIEM and Linux log analysis.
 
 ---
 
@@ -17,57 +17,99 @@ This project simulates an SSH brute-force attack and demonstrates detection usin
 
 ## ⚔️ Attack Simulation
 
-### Nmap Scan
+A brute-force attack was performed using Hydra against an SSH service.
 
-```
-nmap 192.168.56.101
-```
-
-### Brute Force Attack
-
-```
+```bash
 hydra -l vboxuser -P passwords.txt ssh://192.168.56.101
 ```
 
+### 🔥 Hydra Attack
+
+![Hydra Attack](./screenshots/hydra-attack.png)
+
 ---
 
-## 📊 Log Analysis
+## 📊 Log Evidence (Linux)
 
-Logs monitored:
+Authentication logs show repeated failed login attempts:
 
-```
-/var/log/auth.log
+```bash
+grep "Failed password" /var/log/auth.log
 ```
 
-Example:
+### 📄 Raw Log Evidence
 
-```
-Failed password for vboxuser from 192.168.56.102
-```
+![Auth Log](./screenshots/auth-log-raw.png)
 
 ---
 
 ## 🔍 Detection in Splunk
 
-```
+Failed login attempts were ingested into Splunk and analyzed.
+
+### 🚨 Failed Login Events
+
+![Splunk Failed](./screenshots/splunk-failed-log.png)
+
+---
+
+### 📈 Attack Source Identification
+
+```spl
 "Failed password"
 | rex "from (?<src>\d+\.\d+\.\d+\.\d+)"
 | stats count by src
 | where count > 5
 ```
 
+### 📊 Failed Attempts by IP
+
+![Splunk Count](./screenshots/splunk-ip-count.png)
+
+---
+
+## 🎯 Successful Compromise
+
+After multiple attempts, the attacker successfully logged in:
+
+### 🔓 SSH Access Gained
+
+![SSH Success](./screenshots/ssh-success.png)
+
+---
+
+## 🧠 Advanced Log Parsing (Linux)
+
+Improved log parsing using regex to accurately extract attacker IPs:
+
+### 🧩 IP Extraction
+
+![Linux Regex](./screenshots/linux-ip-extraction.png)
+
 ---
 
 ## 🚨 Findings
 
-* Attacker IP: 192.168.56.102
-* Failed attempts: 49
-* Successful login observed
+* Attacker IP: **192.168.56.102**
+* Total failed attempts: **49**
+* Successful login confirmed
+* Pattern consistent with brute-force attack
 
 ---
 
 ## 🧠 Key Takeaways
 
-* Brute-force attacks create detectable patterns
-* SIEM enables centralized visibility
-* Log analysis is essential for threat detection
+* Brute-force attacks generate identifiable patterns in logs
+* SIEM tools like Splunk enable centralized detection
+* Combining Linux and SIEM analysis improves visibility
+* Accurate parsing (regex) is critical for reliable detection
+
+---
+
+## 🚀 Skills Demonstrated
+
+* SIEM (Splunk)
+* Linux Log Analysis
+* Threat Detection
+* Attack Simulation (Hydra)
+* Regex & Data Extraction
