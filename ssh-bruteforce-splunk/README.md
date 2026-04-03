@@ -103,6 +103,17 @@ index=main source="/var/log/auth.log" "Failed password"
 
 ---
 
+## Alerting & Detection
+
+Configured a Splunk alert to detect SSH brute-force activity:
+- Trigger: Failed login attempts > threshold
+- Severity: High
+- Result: Alert successfully triggered during simulated attack
+
+screenshots/alert-triggered.png
+
+---
+
 ## 🎯 Successful Compromise
 
 After multiple attempts, the attacker successfully logged in:
