@@ -110,7 +110,9 @@ Configured a Splunk alert to detect SSH brute-force activity:
 - Severity: High
 - Result: Alert successfully triggered during simulated attack
 
-screenshots/alert-triggered.png
+### 🚨 Alert Triggered
+
+![Splunk Alert Triggered](screenshots/alert-triggered.png)
 
 ---
 
